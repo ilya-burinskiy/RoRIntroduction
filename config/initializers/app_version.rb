@@ -1,6 +1,5 @@
-class Configuration
-  class << self
-    attr_accessor :app_version
+module RoRIntroduction
+  class Application
+    VERSION = "0.1.0"
   end
-  self.app_version = 0.1.0
 end
