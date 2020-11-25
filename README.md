@@ -21,4 +21,7 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+* TestGuru entities
+
+  Questions, UserAnswers, CorrectAnswers,
+  TestCategories, Tests, Users
