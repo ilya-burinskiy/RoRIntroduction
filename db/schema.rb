@@ -10,41 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_26_091629) do
+ActiveRecord::Schema.define(version: 2020_11_26_102058) do
 
   create_table "answers", force: :cascade do |t|
-    t.integer "question_id"
-    t.integer "user_id"
-    t.text "answer_text"
-    t.boolean "is_correct"
+    t.integer "question_id", null: false
+    t.integer "user_id", null: false
+    t.text "answer_text", null: false
+    t.boolean "is_correct", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "questions", force: :cascade do |t|
-    t.text "question_txt"
-    t.integer "test"
+    t.text "question_txt", null: false
+    t.integer "test", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tests", force: :cascade do |t|
-    t.string "title"
-    t.integer "level"
-    t.integer "category"
+    t.string "title", null: false
+    t.integer "level", null: false
+    t.integer "category", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
