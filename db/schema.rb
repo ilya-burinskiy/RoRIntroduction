@@ -10,15 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_26_121504) do
+ActiveRecord::Schema.define(version: 2020_11_26_091629) do
 
   create_table "answers", force: :cascade do |t|
-    t.integer "question_id", null: false
     t.integer "user_id", null: false
+    t.integer "question_id", null: false
     t.text "answer_text", null: false
     t.boolean "is_correct", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -29,15 +31,16 @@ ActiveRecord::Schema.define(version: 2020_11_26_121504) do
 
   create_table "questions", force: :cascade do |t|
     t.text "question_txt", null: false
-    t.integer "test", null: false
+    t.integer "test_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["test_id"], name: "index_questions_on_test_id"
   end
 
   create_table "tests", force: :cascade do |t|
     t.string "title", null: false
-    t.integer "level", default: 0, null: false
-    t.integer "category", null: false
+    t.integer "level", null: false
+    t.integer "category", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -49,4 +52,6 @@ ActiveRecord::Schema.define(version: 2020_11_26_121504) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "users"
 end
