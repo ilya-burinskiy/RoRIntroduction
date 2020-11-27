@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2020_11_26_091629) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.text "question_txt", null: false
+    t.string "title", null: false
     t.integer "test_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2020_11_26_091629) do
   end
 
   add_foreign_key "answers", "questions"
+  add_foreign_key "questions", "tests"
   add_foreign_key "tests", "categories"
   add_foreign_key "tests", "users"
 end
