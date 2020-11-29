@@ -13,7 +13,7 @@ categories_seeds = [
 ]
 
 categories_seeds.each do |seed|
-  seed.save if Category.find_by(name: seed.name).nil?
+  Category.find_or_create_by(name: seed.name)
 end
 
 users_seeds = []
@@ -25,11 +25,10 @@ users_seeds = []
 end
 
 users_seeds.each do |seed|
-  seed.save if User.find_by(
-    first_name: seed.first_name,
-    last_name: seed.last_name,
-    email: seed.email
-  ).nil?
+  User.find_or_create_by(first_name: seed.first_name,
+                         last_name: seed.last_name,
+                         email: seed.email
+  )
 end
 
 author_id = User.first.id
@@ -49,11 +48,10 @@ tests_seeds = [
 ]
 
 tests_seeds.each do |seed|
-  seed.save if Test.find_by(
-    title: seed.title,
-    category_id: seed.category_id,
-    user_id: seed.user_id
-  ).nil?
+  Test.find_or_create_by(title: seed.title,
+                         category_id: seed.category_id,
+                         user_id: seed.user_id
+  )
 end
 
 questions_seeds = [
@@ -71,48 +69,49 @@ questions_seeds = [
 ]
 
 questions_seeds.each do |seed|
-  seed.save if Question.find_by(
-    title: seed.title,
-    test_id: seed.test_id
-  ).nil?
+  Question.find_or_create_by(title: seed.title,
+                             test_id: seed.test_id)
 end
 
 answers_seeds = [
-  Answer.new(question_id: Question.where(title: 'What is a virtual inheritance?').take.id,
-             body: 'Virtual inheritance is used to solve diamond problem.'
+  Answer.new(
+    question_id: Question.where(title: 'What is a virtual inheritance?').take.id,
+    body: 'Virtual inheritance is used to solve diamond problem.'
   ),
 
-  Answer.new(question_id: Question.where(title: 'How to plot a histogram?').take.id,
-             body: 'By using pyplot.hist method'
+  Answer.new(
+    question_id: Question.where(title: 'How to plot a histogram?').take.id,
+    body: 'By using pyplot.hist method'
   ),
 
-  Answer.new(question_id: Question.where(title: 'What is an eigenclass?').take.id,
-             body: "Eigenclass is an anonymous class that stores object's singleton methods"
+  Answer.new(
+    question_id: Question.where(title: 'What is an eigenclass?').take.id,
+    body: "Eigenclass is an anonymous class that stores object's singleton methods"
   )
 ]
 
 answers_seeds.each do |seed|
-  seed.save if Answer.find_by(
-    question_id: seed.question_id,
-    body: seed.body
-  ).nil?
+  Answer.find_or_create_by(question_id: seed.question_id,
+                           body: seed.body)
 end
 
 tests_started_by_user_seeds = [
-  TestsStartedByUser.new(test_id: Test.where(title: 'Multiple inheritance').take.id,
-                         user_id: User.where(first_name: 'fname1').take.id
+  TestsStartedByUser.new(
+    test_id: Test.where(title: 'Multiple inheritance').take.id,
+    user_id: User.where(first_name: 'fname1').take.id
   ),
-  TestsStartedByUser.new(test_id: Test.where(title: 'Plotting').take.id,
-                         user_id: User.where(first_name: 'fname1').take.id
+  TestsStartedByUser.new(
+    test_id: Test.where(title: 'Plotting').take.id,
+    user_id: User.where(first_name: 'fname1').take.id
   ),
-  TestsStartedByUser.new(test_id: Test.where(title: 'Metaprogramming').take.id,
-                         user_id: User.where(first_name: 'fname1').take.id
+  TestsStartedByUser.new(
+    test_id: Test.where(title: 'Metaprogramming').take.id,
+    user_id: User.where(first_name: 'fname1').take.id
   )
 ]
 
 tests_started_by_user_seeds.each do |seed|
-  seed.save if TestsStartedByUser.find_by(
-    test_id: seed.test_id,
-    user_id: seed.user_id
-  ).nil? 
+  TestsStartedByUser.find_or_create_by(test_id: seed.test_id,
+                                       user_id: seed.user_id
+  )
 end
