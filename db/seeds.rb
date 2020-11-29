@@ -18,8 +18,8 @@ end
 
 users_seeds = []
 5.times do |i|
-  users_seeds << User.new(first_name: "fname#{i}", 
-                          last_name: "lname#{i}", 
+  users_seeds << User.new(first_name: "fname#{i}",
+                          last_name: "lname#{i}",
                           email: "user#{i}@mail.com",
                           password: "user#{i}")
 end
@@ -27,45 +27,37 @@ end
 users_seeds.each do |seed|
   User.find_or_create_by(first_name: seed.first_name,
                          last_name: seed.last_name,
-                         email: seed.email
-  )
+                         email: seed.email)
 end
 
 author_id = User.first.id
 tests_seeds = [
   Test.new(title: 'Multiple inheritance', level: 2,
            category_id: Category.where(name: 'C++').take.id,
-           user_id: author_id
-  ),
+           user_id: author_id),
   Test.new(title: 'Plotting', level: 0,
            category_id: Category.where(name: 'Python').take.id,
-           user_id: author_id
-  ),
+           user_id: author_id),
   Test.new(title: 'Metaprogramming', level: 1,
            category_id: Category.where(name: 'Ruby').take.id,
-           user_id: author_id
-  )
+           user_id: author_id)
 ]
 
 tests_seeds.each do |seed|
   Test.find_or_create_by(title: seed.title,
                          category_id: seed.category_id,
-                         user_id: seed.user_id
-  )
+                         user_id: seed.user_id)
 end
 
 questions_seeds = [
   Question.new(title: 'What is a virtual inheritance?',
-               test_id: Test.where(title: 'Multiple inheritance').take.id
-  ),
+               test_id: Test.where(title: 'Multiple inheritance').take.id),
 
   Question.new(title: 'How to plot a histogram?',
-               test_id: Test.where(title: 'Plotting').take.id
-  ),
+               test_id: Test.where(title: 'Plotting').take.id),
 
   Question.new(title: 'What is an eigenclass?',
-               test_id: Test.where(title: 'Metaprogramming').take.id
-  )
+               test_id: Test.where(title: 'Metaprogramming').take.id)
 ]
 
 questions_seeds.each do |seed|
@@ -112,6 +104,5 @@ tests_started_by_user_seeds = [
 
 tests_started_by_user_seeds.each do |seed|
   TestsStartedByUser.find_or_create_by(test_id: seed.test_id,
-                                       user_id: seed.user_id
-  )
+                                       user_id: seed.user_id)
 end
