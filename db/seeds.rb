@@ -13,7 +13,7 @@ categories_seeds = [
 ]
 
 categories_seeds.each do |seed|
-  seed.save if seed.new_record?
+  seed.save if Category.find_by(name: seed.name).nil?
 end
 
 users_seeds = []
