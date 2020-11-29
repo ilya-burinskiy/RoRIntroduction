@@ -6,98 +6,113 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-def seed_categories
-  Category.create([{ name: 'C++' }, { name: 'Python' }, { name: 'Ruby' }])
+categories_seeds = [
+  Category.new(name: 'C++'),
+  Category.new(name: 'Python'),
+  Category.new(name: 'Ruby')
+]
+
+categories_seeds.each do |seed|
+  seed.save if seed.new_record?
 end
 
-def seed_users(n)
-  n.times do |i|
-    User.create(
-      { first_name: "fname#{i}",
-        last_name: "sname#{i}",
-        email: "user#{i}@mail.com",
-        password: "user#{i}" }
-    )
-  end
+users_seeds = []
+5.times do |i|
+  users_seeds << User.new(first_name: "fname#{i}", 
+                          last_name: "lname#{i}", 
+                          email: "user#{i}@mail.com",
+                          password: "user#{i}")
 end
 
-def seed_tests
-  author_id = User.first.id
-  Test.create([
-                { title: 'Multiple inheritance', level: 2,
-                  category_id: Category.where(name: 'C++').take.id,
-                  user_id: author_id },
-
-                {
-                  title: 'Plotting', level: 0,
-                  category_id: Category.where(name: = 'Python').take.id,
-                  user_id: author_id
-                },
-
-                { title: 'Metaprogramming', level: 1,
-                  category_id: Category.where(name: = 'Ruby').take.id,
-                  user_id: author_id }
-              ])
+users_seeds.each do |seed|
+  seed.save if User.find_by(
+    first_name: seed.first_name,
+    last_name: seed.last_name,
+    email: seed.email
+  ).nil?
 end
 
-def seed_questions
-  Question.create([
-                    {
-                      title: 'What is a virtual inheritance?',
-                      test_id: Test.where(title: 'Multiple inheritance').take.id
-                    },
+author_id = User.first.id
+tests_seeds = [
+  Test.new(title: 'Multiple inheritance', level: 2,
+           category_id: Category.where(name: 'C++').take.id,
+           user_id: author_id
+  ),
+  Test.new(title: 'Plotting', level: 0,
+           category_id: Category.where(name: 'Python').take.id,
+           user_id: author_id
+  ),
+  Test.new(title: 'Metaprogramming', level: 1,
+           category_id: Category.where(name: 'Ruby').take.id,
+           user_id: author_id
+  )
+]
 
-                    {
-                      title: 'How to plot a histogram?',
-                      test_id: Test.where(title: 'Plotting').take.id
-                    },
-
-                    {
-                      title: 'What is an eigenclass?',
-                      test_id: Test.where(title: 'Metaprogramming').take.id
-                    }
-                  ])
+tests_seeds.each do |seed|
+  seed.save if Test.find_by(
+    title: seed.title,
+    category_id: seed.category_id,
+    user_id: seed.user_id
+  ).nil?
 end
 
-def seed_answers
-  Answer.create([
-                  {
-                    question_id: Question.where(title: 'What is a virtual inheritance?').take.id,
-                    body: 'Virtual inheritance is used to solve diamond problem.'
-                  },
+questions_seeds = [
+  Question.new(title: 'What is a virtual inheritance?',
+               test_id: Test.where(title: 'Multiple inheritance').take.id
+  ),
 
-                  {
-                    question_id: Question.where(title: 'How to plot a histogram?').take.id,
-                    body: 'By using pyplot.hist method'
-                  },
+  Question.new(title: 'How to plot a histogram?',
+               test_id: Test.where(title: 'Plotting').take.id
+  ),
 
-                  {
-                    question_id: Question.where(title: 'What is an eigenclass?').take.id,
-                    body: "Eigenclass is an anonymous class that stores object's singleton methods"
-                  }
-                ])
+  Question.new(title: 'What is an eigenclass?',
+               test_id: Test.where(title: 'Metaprogramming').take.id
+  )
+]
+
+questions_seeds.each do |seed|
+  seed.save if Question.find_by(
+    title: seed.title,
+    test_id: seed.test_id
+  ).nil?
 end
 
-def seed_tests_started_by_user
-  TestsStartedByUser.create([
+answers_seeds = [
+  Answer.new(question_id: Question.where(title: 'What is a virtual inheritance?').take.id,
+             body: 'Virtual inheritance is used to solve diamond problem.'
+  ),
 
-                              { test_id: Test.where(title: 'Multiple inheritance').take.id,
-                                user_id: User.where(first_name: 'fname1').take.id },
+  Answer.new(question_id: Question.where(title: 'How to plot a histogram?').take.id,
+             body: 'By using pyplot.hist method'
+  ),
 
-                              {
-                                test_id: Test.where(title: 'Plotting').take.id,
-                                user_id: User.where(first_name: 'fname1').take.id
-                              },
+  Answer.new(question_id: Question.where(title: 'What is an eigenclass?').take.id,
+             body: "Eigenclass is an anonymous class that stores object's singleton methods"
+  )
+]
 
-                              {
-                                test_id: Test.where(title: 'Metaprogramming').take.id,
-                                user_id: User.where(first_name: 'fname1').take.id
-                              }
-
-                            ])
+answers_seeds.each do |seed|
+  seed.save if Answer.find_by(
+    question_id: seed.question_id,
+    body: seed.body
+  ).nil?
 end
 
-seed_categories
-seed_users(5)
-seed_tests
-seed_tests_started_by_user
+tests_started_by_user_seeds = [
+  TestsStartedByUser.new(test_id: Test.where(title: 'Multiple inheritance').take.id,
+                         user_id: User.where(first_name: 'fname1').take.id
+  ),
+  TestsStartedByUser.new(test_id: Test.where(title: 'Plotting').take.id,
+                         user_id: User.where(first_name: 'fname1').take.id
+  ),
+  TestsStartedByUser.new(test_id: Test.where(title: 'Metaprogramming').take.id,
+                         user_id: User.where(first_name: 'fname1').take.id
+  )
+]
+
+tests_started_by_user_seeds.each do |seed|
+  seed.save if TestsStartedByUser.find_by(
+    test_id: seed.test_id,
+    user_id: seed.user_id
+  ).nil? 
+end
