@@ -1,4 +1,5 @@
 class Test < ApplicationRecord
+  belongs_to :category
   has_many :tests_started_by_users
   has_many :users, through: :tests_started_by_users
 
