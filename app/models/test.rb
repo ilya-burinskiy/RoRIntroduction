@@ -1,4 +1,7 @@
 class Test < ApplicationRecord
+  has_many :tests_started_by_users
+  has_many :users, through: :tests_started_by_users
+
   def self.list_titles_by_category(pattern)
     Test.joins(
       'JOIN categories ON tests.category_id = categories.id'
