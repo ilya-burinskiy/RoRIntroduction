@@ -27,82 +27,83 @@ end
 users_seeds.each do |seed|
   User.find_or_create_by(first_name: seed.first_name,
                          last_name: seed.last_name,
-                         email: seed.email)
+                         email: seed.email,
+                         password: seed.password)
 end
 
-author_id = User.first.id
+author = User.first
 tests_seeds = [
   Test.new(title: 'Multiple inheritance', level: 2,
-           category_id: Category.where(name: 'C++').take.id,
-           user_id: author_id),
+           category: Category.find_by(name: 'C++'),
+           author: author),
   Test.new(title: 'Plotting', level: 0,
-           category_id: Category.where(name: 'Python').take.id,
-           user_id: author_id),
+           category: Category.find_by(name: 'Python'),
+           author: author),
   Test.new(title: 'Metaprogramming', level: 1,
-           category_id: Category.where(name: 'Ruby').take.id,
-           user_id: author_id)
+           category: Category.find_by(name: 'Ruby'),
+           author: author)
 ]
 
 tests_seeds.each do |seed|
   Test.find_or_create_by(title: seed.title,
-                         category_id: seed.category_id,
-                         user_id: seed.user_id)
+                         category: seed.category,
+                         author: seed.author)
 end
 
 questions_seeds = [
   Question.new(title: 'What is a virtual inheritance?',
-               test_id: Test.where(title: 'Multiple inheritance').take.id),
+               test: Test.find_by(title: 'Multiple inheritance')),
 
   Question.new(title: 'How to plot a histogram?',
-               test_id: Test.where(title: 'Plotting').take.id),
+               test: Test.find_by(title: 'Plotting')),
 
   Question.new(title: 'What is an eigenclass?',
-               test_id: Test.where(title: 'Metaprogramming').take.id)
+               test: Test.find_by(title: 'Metaprogramming'))
 ]
 
 questions_seeds.each do |seed|
   Question.find_or_create_by(title: seed.title,
-                             test_id: seed.test_id)
+                             test: seed.test)
 end
 
 answers_seeds = [
   Answer.new(
-    question_id: Question.where(title: 'What is a virtual inheritance?').take.id,
+    question: Question.find_by(title: 'What is a virtual inheritance?'),
     body: 'Virtual inheritance is used to solve diamond problem.'
   ),
 
   Answer.new(
-    question_id: Question.where(title: 'How to plot a histogram?').take.id,
+    question: Question.find_by(title: 'How to plot a histogram?'),
     body: 'By using pyplot.hist method'
   ),
 
   Answer.new(
-    question_id: Question.where(title: 'What is an eigenclass?').take.id,
+    question: Question.find_by(title: 'What is an eigenclass?'),
     body: "Eigenclass is an anonymous class that stores object's singleton methods"
   )
 ]
 
 answers_seeds.each do |seed|
-  Answer.find_or_create_by(question_id: seed.question_id,
+  Answer.find_or_create_by(question: seed.question,
                            body: seed.body)
 end
 
 tests_started_by_user_seeds = [
   TestsStartedByUser.new(
-    test_id: Test.where(title: 'Multiple inheritance').take.id,
-    user_id: User.where(first_name: 'fname1').take.id
+    test: Test.find_by(title: 'Multiple inheritance'),
+    user: User.find_by(first_name: 'fname1')
   ),
   TestsStartedByUser.new(
-    test_id: Test.where(title: 'Plotting').take.id,
-    user_id: User.where(first_name: 'fname1').take.id
+    test: Test.find_by(title: 'Plotting'),
+    user: User.find_by(first_name: 'fname1')
   ),
   TestsStartedByUser.new(
-    test_id: Test.where(title: 'Metaprogramming').take.id,
-    user_id: User.where(first_name: 'fname1').take.id
+    test: Test.find_by(title: 'Metaprogramming'),
+    user: User.find_by(first_name: 'fname1')
   )
 ]
 
 tests_started_by_user_seeds.each do |seed|
-  TestsStartedByUser.find_or_create_by(test_id: seed.test_id,
-                                       user_id: seed.user_id)
+  TestsStartedByUser.find_or_create_by(test: seed.test,
+                                       user: seed.user)
 end
