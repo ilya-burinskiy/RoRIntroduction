@@ -8,7 +8,7 @@ class Question < ApplicationRecord
   private
 
   def validate_answer_count
-    if answers.count < 1 || answers.count > 4
+    unless (1..4).include?(answers.count)
       errors.add(:base, message: 'Question can have from 1 to 4 answers') 
     end
   end
