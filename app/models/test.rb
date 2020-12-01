@@ -16,9 +16,9 @@ class Test < ApplicationRecord
   scope :medium, -> { by_level(2..4) }
   scope :difficult, -> { by_level(5..Float::INFINITY) }
 
-  scope :list_titles_by_category, lambda { |pattern|
-                                    Test.joins(:category).where(
-                                      categories: { name: pattern }
-                                    ).order(title: :desc).pluck(:title)
-                                  }
+  def self.list_titles_by_category(pattern)
+    Test.joins(:category).where(
+      categories: { name: pattern }
+    ).order(title: :desc).pluck(:title)
+  end
 end
