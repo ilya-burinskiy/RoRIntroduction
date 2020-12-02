@@ -6,25 +6,23 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-begin
+unless Category.exist?
   Category.create!([
                      { name: 'C++' }, { name: 'Python' }, { name: 'Ruby' }
                    ])
-rescue ActiveRecord::RecordInvalid => e
 end
 
-begin
-  5.times do |i|
-    User.create!([
-                   { first_name: "fname#{i}", last_name: "lname#{i}",
-                     email: "user#{i}@mail.com", password: "user#{i}" }
-                 ])
-  end
-rescue ActiveRecord::RecordInvalid => e
+5.times do |i|
+  next if User.exist?
+
+  User.create!([
+                 { first_name: "fname#{i}", last_name: "lname#{i}",
+                   email: "user#{i}@mail.com", password: "user#{i}" }
+               ])
 end
 
-begin
-  author = User.first
+author = User.first
+unless Test.exist?
   Test.create!([
                  { title: 'Multiple inheritance', level: 2,
                    category: Category.find_by(name: 'C++'),
@@ -37,10 +35,9 @@ begin
                    category: Category.find_by(name: 'Ruby'),
                    author: author }
                ])
-rescue ActiveRecord::RecordInvalid => e
 end
 
-begin
+unless Question.exist?
   Question.create!([
                      { body: 'What is a virtual inheritance?',
                        test: Test.find_by(title: 'Multiple inheritance') },
@@ -49,10 +46,9 @@ begin
                      { body: 'What is an eigenclass?',
                        test: Test.find_by(title: 'Metaprogramming') }
                    ])
-rescue ActiveRecord::RecordInvalid => e
 end
 
-begin
+unless Answer.exist?
   Answer.create!([
                    { question: Question.find_by(body: 'What is a virtual inheritance?'),
                      body: 'Virtual inheritance is used to solve diamond problem.' },
@@ -67,10 +63,9 @@ begin
                      body: "Eigenclass is an anonymous class that stores object's singleton methods"
                    }
                  ])
-rescue ActiveRecord::RecordInvalid => e
-end
 
-begin
+end
+unless TestsStartedByUser.exist?
   TestsStartedByUser.create!([
                                {
                                  test: Test.find_by(title: 'Multiple inheritance'),
@@ -85,5 +80,4 @@ begin
                                  user: User.find_by(first_name: 'fname1')
                                }
                              ])
-rescue ActiveRecord::RecordInvalid => e
 end
