@@ -6,104 +6,84 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-categories_seeds = [
-  Category.new(name: 'C++'),
-  Category.new(name: 'Python'),
-  Category.new(name: 'Ruby')
-]
-
-categories_seeds.each do |seed|
-  Category.find_or_create_by(name: seed.name)
+begin
+  Category.create!([
+                     { name: 'C++' }, { name: 'Python' }, { name: 'Ruby' }
+                   ])
+rescue ActiveRecord::RecordInvalid => e
 end
 
-users_seeds = []
-5.times do |i|
-  users_seeds << User.new(first_name: "fname#{i}",
-                          last_name: "lname#{i}",
-                          email: "user#{i}@mail.com",
-                          password: "user#{i}")
+begin
+  5.times do |i|
+    User.create!([
+                   { first_name: "fname#{i}", last_name: "lname#{i}",
+                     email: "user#{i}@mail.com", password: "user#{i}" }
+                 ])
+  end
+rescue ActiveRecord::RecordInvalid => e
 end
 
-users_seeds.each do |seed|
-  User.find_or_create_by(first_name: seed.first_name,
-                         last_name: seed.last_name,
-                         email: seed.email,
-                         password: seed.password)
+begin
+  author = User.first
+  Test.create!([
+                 { title: 'Multiple inheritance', level: 2,
+                   category: Category.find_by(name: 'C++'),
+                   author: author },
+                 { title: 'Plotting', level: 0,
+                   category: Category.find_by(name: 'Python'),
+                   author: author },
+
+                 { title: 'Metaprogramming', level: 1,
+                   category: Category.find_by(name: 'Ruby'),
+                   author: author }
+               ])
+rescue ActiveRecord::RecordInvalid => e
 end
 
-author = User.first
-tests_seeds = [
-  Test.new(title: 'Multiple inheritance', level: 2,
-           category: Category.find_by(name: 'C++'),
-           author: author),
-  Test.new(title: 'Plotting', level: 0,
-           category: Category.find_by(name: 'Python'),
-           author: author),
-  Test.new(title: 'Metaprogramming', level: 1,
-           category: Category.find_by(name: 'Ruby'),
-           author: author)
-]
-
-tests_seeds.each do |seed|
-  Test.find_or_create_by(title: seed.title,
-                         category: seed.category,
-                         author: seed.author)
+begin
+  Question.create!([
+                     { body: 'What is a virtual inheritance?',
+                       test: Test.find_by(title: 'Multiple inheritance') },
+                     { body: 'How to plot a histogram?',
+                       test: Test.find_by(title: 'Plotting') },
+                     { body: 'What is an eigenclass?',
+                       test: Test.find_by(title: 'Metaprogramming') }
+                   ])
+rescue ActiveRecord::RecordInvalid => e
 end
 
-questions_seeds = [
-  Question.new(title: 'What is a virtual inheritance?',
-               test: Test.find_by(title: 'Multiple inheritance')),
+begin
+  Answer.create!([
+                   { question: Question.find_by(body: 'What is a virtual inheritance?'),
+                     body: 'Virtual inheritance is used to solve diamond problem.' },
 
-  Question.new(title: 'How to plot a histogram?',
-               test: Test.find_by(title: 'Plotting')),
+                   {
+                     question: Question.find_by(body: 'How to plot a histogram?'),
+                     body: 'By using pyplot.hist method'
+                   },
 
-  Question.new(title: 'What is an eigenclass?',
-               test: Test.find_by(title: 'Metaprogramming'))
-]
-
-questions_seeds.each do |seed|
-  Question.find_or_create_by(title: seed.title,
-                             test: seed.test)
+                   {
+                     question: Question.find_by(body: 'What is an eigenclass?'),
+                     body: "Eigenclass is an anonymous class that stores object's singleton methods"
+                   }
+                 ])
+rescue ActiveRecord::RecordInvalid => e
 end
 
-answers_seeds = [
-  Answer.new(
-    question: Question.find_by(title: 'What is a virtual inheritance?'),
-    body: 'Virtual inheritance is used to solve diamond problem.'
-  ),
-
-  Answer.new(
-    question: Question.find_by(title: 'How to plot a histogram?'),
-    body: 'By using pyplot.hist method'
-  ),
-
-  Answer.new(
-    question: Question.find_by(title: 'What is an eigenclass?'),
-    body: "Eigenclass is an anonymous class that stores object's singleton methods"
-  )
-]
-
-answers_seeds.each do |seed|
-  Answer.find_or_create_by(question: seed.question,
-                           body: seed.body)
-end
-
-tests_started_by_user_seeds = [
-  TestsStartedByUser.new(
-    test: Test.find_by(title: 'Multiple inheritance'),
-    user: User.find_by(first_name: 'fname1')
-  ),
-  TestsStartedByUser.new(
-    test: Test.find_by(title: 'Plotting'),
-    user: User.find_by(first_name: 'fname1')
-  ),
-  TestsStartedByUser.new(
-    test: Test.find_by(title: 'Metaprogramming'),
-    user: User.find_by(first_name: 'fname1')
-  )
-]
-
-tests_started_by_user_seeds.each do |seed|
-  TestsStartedByUser.find_or_create_by(test: seed.test,
-                                       user: seed.user)
+begin
+  TestsStartedByUser.create!([
+                               {
+                                 test: Test.find_by(title: 'Multiple inheritance'),
+                                 user: User.find_by(first_name: 'fname1')
+                               },
+                               {
+                                 test: Test.find_by(title: 'Plotting'),
+                                 user: User.find_by(first_name: 'fname1')
+                               },
+                               {
+                                 test: Test.find_by(title: 'Metaprogramming'),
+                                 user: User.find_by(first_name: 'fname1')
+                               }
+                             ])
+rescue ActiveRecord::RecordInvalid => e
 end
