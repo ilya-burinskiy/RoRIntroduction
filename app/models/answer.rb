@@ -1,7 +1,7 @@
 class Answer < ApplicationRecord
   belongs_to :question
-  validates :body, uniqueness: true, presence: true
-  validate :validate_add_to_question
+  validates :body, uniqueness: { scope: :question }, presence: true
+  validate :validate_add_to_question, on: :create
   scope :correct, -> { where(correct: true) }
 
   private
