@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, uniqueness: true, presence: true,
-                    format: { with: /[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+/,
+                    format: { with: URI::MailTo::EMAIL_REGEXP,
                               message: 'Invalid email format' }
 
   def started_tests_by_level(level)
