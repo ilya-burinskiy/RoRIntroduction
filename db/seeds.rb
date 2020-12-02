@@ -63,7 +63,6 @@ unless Answer.exists?
                      body: "Eigenclass is an anonymous class that stores object's singleton methods"
                    }
                  ])
-
 end
 
 unless TestsStartedByUser.exists?
