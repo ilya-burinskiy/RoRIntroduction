@@ -17,6 +17,7 @@ class QuestionsController < ApplicationController
 
   def create
     question = Question.new(question_params)
+    
     if question.valid?
       question.save
       redirect_to test_questions_path
