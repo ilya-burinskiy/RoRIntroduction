@@ -1,3 +1,3 @@
-<h1>Edit question</h1>
-<%= render 'form', url: test_question_path %>
+<%= question_header(@test.title, :edit) %>
+<%= render 'form' %>
 <%= link_to 'Back', test_questions_path %>
