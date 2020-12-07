@@ -2,6 +2,5 @@
   <%= render 'shared/errors', resource: @question %>
   <p><%= render 'form_fields', form: form %></p>
 
-  <%= form.hidden_field :test_id, value: params[:test_id] %>
   <p><%= form.submit %></p>
 <% end %>
