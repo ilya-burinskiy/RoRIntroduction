@@ -1,0 +1,11 @@
+<h1><%= "#{@test.title} " %>questions</h1>
+
+<p>
+  <%= link_to 'New question', new_test_question_path(@test) %>
+</p>
+
+<ul>
+  <% @test.questions.each do |question| %>
+    <%= render 'questions/question', question: question %>
+  <% end %>
+</ul>
