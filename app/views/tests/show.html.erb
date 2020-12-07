@@ -5,7 +5,5 @@
 </p>
 
 <ul>
-  <% @test.questions.each do |question| %>
-    <%= render 'questions/question', question: question %>
-  <% end %>
+  <%= render @questions %>
 </ul>
