@@ -1,2 +1,3 @@
 <li><%= question.body %></li>
-<%= link_to 'Edit', edit_test_question_path(@test, question) %>
+<%= link_to 'Edit', edit_question_path(question) %>
+<%= link_to 'Delete', question_path(question), action: :destroy, method: :delete %>
