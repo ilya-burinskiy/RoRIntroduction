@@ -4,10 +4,6 @@ class QuestionsController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_question_not_found
 
-  def index
-    @questions = @test.questions
-  end
-
   def show
     @test = @question.test
   end
@@ -23,7 +19,7 @@ class QuestionsController < ApplicationController
   def update
     @test = @question.test
     if @question.update(question_params)
-      redirect_to test_path(@test)
+      redirect_to question_path(@question)
     else
       render :edit
     end
