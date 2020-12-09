@@ -1,0 +1,14 @@
+<p>
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+</p>
+
+<p>
+  <%= form.label :level %>
+  <%= form.number_field :level %>
+</p>
+
+<p>
+  <%= form.label :category %>
+  <%= form.collection_select :category_id, Category.all, :id, :name, prompt: true %>
+</p>
