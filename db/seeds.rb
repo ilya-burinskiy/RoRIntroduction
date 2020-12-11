@@ -51,16 +51,19 @@ end
 unless Answer.exists?
   Answer.create!([
     { question: Question.find_by(body: 'What is a virtual inheritance?'),
-      body: 'Virtual inheritance is used to solve diamond problem.' },
+      body: 'Virtual inheritance is used to solve diamond problem.',
+      correct: true },
 
     {
       question: Question.find_by(body: 'How to plot a histogram?'),
-      body: 'By using pyplot.hist method'
+      body: 'By using pyplot.hist method',
+      correct: true
     },
 
     {
       question: Question.find_by(body: 'What is an eigenclass?'),
-      body: "Eigenclass is an anonymous class that stores object's singleton methods"
+      body: "Eigenclass is an anonymous class that stores object's singleton methods",
+      correct: true
     }
   ])
 end
