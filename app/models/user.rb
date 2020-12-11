@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :tests_started_by_users, dependent: :destroy
-  has_many :started_tests, through: :tests_started_by_users, source: :test
+  has_many :test_passages, dependent: :destroy
+  has_many :started_tests, through: :test_passages, source: :test
   has_many :created_tests, class_name: "Test", dependent: :destroy
 
   validates :first_name, presence: true

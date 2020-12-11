@@ -65,8 +65,8 @@ unless Answer.exists?
   ])
 end
 
-unless TestsStartedByUser.exists?
-  TestsStartedByUser.create!([
+unless TestPassage.exists?
+  TestPassage.create!([
     {
       test: Test.find_by(title: 'Multiple inheritance'),
       user: User.find_by(first_name: 'fname1'),
