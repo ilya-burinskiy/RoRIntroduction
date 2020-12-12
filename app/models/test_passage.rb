@@ -3,7 +3,7 @@ class TestPassage < ApplicationRecord
   belongs_to :user
   belongs_to :current_question, class_name: 'Question', foreign_key: :question_id, optional: true
 
-  before_validation :before_validation_set_first_question, on: :create
+  before_validation :next_question
 
   def completed?
     current_question.nil?
@@ -24,7 +24,6 @@ class TestPassage < ApplicationRecord
   end
 
   def correct_answer?(answer_ids)
-    byebug
     correct_answers_count = correct_answers.count
     (correct_answers_count == correct_answers.where(id: answer_ids).count) &&
     correct_answers_count == answer_ids.count
@@ -35,6 +34,10 @@ class TestPassage < ApplicationRecord
   end
 
   def next_question
-    self.current_question = test.questions.order(:id).where('id  > ?', current_question.id).first
+    if current_question.nil?
+      self.current_question = test.questions.first
+    else
+      self.current_question = test.questions.order(:id).where('id  > ?', current_question.id).first
+    end
   end
 end
