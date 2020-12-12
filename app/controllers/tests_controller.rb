@@ -37,7 +37,6 @@ class TestsController < ApplicationController
 
   def start
     @user.started_tests.push(@test)
-    byebug
     redirect_to @user.test_passage(@test)
   end
 

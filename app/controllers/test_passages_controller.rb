@@ -1,10 +1,18 @@
 class TestPassagesController < ApplicationController
   before_action :set_test_passage, only: %i[show update result]
 
+  THRESHOLD = 85
+
   def show
   end
 
   def result
+    correct_questions_num = @test_passage.correct_questions
+    total_correct_questions_num = 0
+    @test_passage.test.questions.each do |question|
+      total_correct_questions_num += question.answers.correct.count
+    end
+    @passage_percent = (correct_questions_num.to_f / total_correct_questions_num * 100).to_i
   end
 
   def update
@@ -22,5 +30,4 @@ class TestPassagesController < ApplicationController
   def set_test_passage
     @test_passage = TestPassage.find(params[:id])
   end
-
 end
