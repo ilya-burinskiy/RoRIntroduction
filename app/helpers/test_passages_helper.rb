@@ -13,7 +13,7 @@ module TestPassagesHelper
   private
 
   def passed?
-    return true if @passage_percent >= TestPassagesController::THRESHOLD
+    return true if @test_passage.passage_percent >= TestPassage::THRESHOLD
     false
   end
 end

@@ -5,6 +5,8 @@ class TestPassage < ApplicationRecord
 
   before_validation :next_question
 
+  THRESHOLD = 85.freeze
+
   def completed?
     current_question.nil?
   end
@@ -17,10 +19,23 @@ class TestPassage < ApplicationRecord
     save!
   end
 
+  def passage_percent
+    calc_passage_percent if @passage_percent.nil?
+    @passage_percent
+  end
+
   private
 
   def before_validation_set_first_question
     self.current_question = test.questions.first
+  end
+
+  def calc_passage_percent
+    total_correct_questions_num = 0
+    test.questions.each do |question|
+      total_correct_questions_num += question.answers.correct.count
+    end
+    @passage_percent = (correct_questions.to_f / total_correct_questions_num * 100).to_i
   end
 
   def correct_answer?(answer_ids)
