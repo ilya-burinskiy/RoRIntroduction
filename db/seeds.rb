@@ -67,23 +67,3 @@ unless Answer.exists?
     }
   ])
 end
-
-unless TestPassage.exists?
-  TestPassage.create!([
-    {
-      test: Test.find_by(title: 'Multiple inheritance'),
-      user: User.find_by(first_name: 'fname1'),
-      current_question: Test.find_by(title: 'Multiple inheritance').questions.first
-    },
-    {
-      test: Test.find_by(title: 'Plotting'),
-      user: User.find_by(first_name: 'fname1'),
-      current_question: Test.find_by(title: 'Plotting').questions.first
-    },
-    {
-      test: Test.find_by(title: 'Metaprogramming'),
-      user: User.find_by(first_name: 'fname1'),
-      current_question: Test.find_by(title: 'Metaprogramming').questions.first
-    }
-  ])
-end
