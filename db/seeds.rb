@@ -76,7 +76,7 @@ unless Answer.exists?
     { 
       question: Question.find_by(body: 'Which of the following will cause undefined behavior'),
       body: 'Using switch case operator without default',
-      correct: true 
+      correct: false 
     },
     { 
       question: Question.find_by(body: 'How many times will the next loop be executed for(int i = 3; i < 10; ++i){}'),
