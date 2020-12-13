@@ -5,7 +5,6 @@ class Question < ApplicationRecord
   validates :body, uniqueness: { scope: :test }, presence: true
 
   def number
-    tot_questions_count = test.questions.count
-    Hash[test.question_ids.zip(1..tot_questions_count)][id]
+    Hash[test.question_ids.zip(1..test.questions.count)][id]
   end
 end
