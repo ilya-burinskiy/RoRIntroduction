@@ -75,7 +75,7 @@ unless Answer.exists?
     },
     { 
       question: Question.find_by(body: 'Which of the following will cause undefined behavior'),
-      body: 'Calculating the remainder of a division by zero',
+      body: 'Using switch case operator without default',
       correct: true 
     },
     { 
