@@ -3,7 +3,7 @@ class TestPassage < ApplicationRecord
   belongs_to :user
   belongs_to :current_question, class_name: 'Question', foreign_key: :question_id, optional: true
 
-  before_validation :next_question
+  before_validation :before_validation_set_first_question, on: :create
 
   THRESHOLD = 85.freeze
 
@@ -16,12 +16,17 @@ class TestPassage < ApplicationRecord
       self.correct_questions += 1
     end
 
+    self.current_question = next_question
     save!
   end
 
   def passage_percent
     calc_passage_percent if @passage_percent.nil?
     @passage_percent
+  end
+
+  def passed?
+    true if passage_percent >= THRESHOLD
   end
 
   private
@@ -49,10 +54,6 @@ class TestPassage < ApplicationRecord
   end
 
   def next_question
-    if current_question.nil?
-      self.current_question = test.questions.first
-    else
-      self.current_question = test.questions.order(:id).where('id  > ?', current_question.id).first
-    end
+    test.questions.order(:id).where('id  > ?', current_question.id).first
   end
 end
