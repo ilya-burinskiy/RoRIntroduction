@@ -12,6 +12,10 @@
   <%= link_to 'Edit', edit_test_path(@test) %>
 </p>
 
+<p>
+  <%= button_to 'Start', start_test_path(@test) %>
+</p>
+
 <ul>
   <%= render @questions %>
 </ul>
