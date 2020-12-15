@@ -1,5 +1,3 @@
-require 'digest/sha1'
-
 class User < ApplicationRecord
   has_many :test_passages, dependent: :destroy
   has_many :started_tests, through: :test_passages, source: :test
