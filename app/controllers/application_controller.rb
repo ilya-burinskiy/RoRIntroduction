@@ -1,7 +1,4 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
-  skip_before_action :authenticate_user!, only: %i[new create] 
-  
   helper_method :current_user, :logged_in?
 
   private

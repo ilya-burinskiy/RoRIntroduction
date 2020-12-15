@@ -1,4 +1,7 @@
 class AnswersController < ApplicationController
+  before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: %i[new create] 
+  
   before_action :set_answer, only: %i[show edit update destroy]
   before_action :find_qeustion, only: %i[new create]
 
