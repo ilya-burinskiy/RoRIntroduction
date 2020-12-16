@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  before_action :authenticate_user!
+  
   before_action :find_question, only: %i[edit show update destroy]
   before_action :find_test, only: %i[index create new]
 
