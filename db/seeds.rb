@@ -13,12 +13,10 @@ unless Category.exists?
 end
 
 unless User.exists?
-  5.times do |i|
-    User.create!([
-      { first_name: "fname#{i}", last_name: "lname#{i}",
-        email: "user#{i}@mail.com", password_digest: BCrypt::Password.create("user#{i}") }
-    ])
-  end
+  User.create!(
+    { first_name: "fname", last_name: "lname",
+      email: "user@mail.com", password: "fname_lname_0" }
+  )
 end
 
 author = User.first
