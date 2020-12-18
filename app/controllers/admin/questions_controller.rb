@@ -1,4 +1,4 @@
-class QuestionsController < ApplicationController
+class Admin::QuestionsController < Admin::BaseController
   before_action :authenticate_user!
   
   before_action :find_question, only: %i[edit show update destroy]

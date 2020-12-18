@@ -8,8 +8,7 @@
 <h2>Questions</h2>
 
 <p>
-  <% #= render @test.questions %>
-  <%= render partial: 'questions/question', collection: @test.questions %>
+  <%= render @test.questions %>
 </p>
 
 <%= link_to 'Edit', edit_admin_test_path(@test) %>
