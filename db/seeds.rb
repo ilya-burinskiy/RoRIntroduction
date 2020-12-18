@@ -14,8 +14,15 @@ end
 
 unless User.exists?
   User.create!(
-    { first_name: "fname", last_name: "lname",
-      email: "user@mail.com", password: "fname_lname_0" }
+    { 
+      first_name: "fname", last_name: "lname",
+      email: "user@mail.com", password: "user_password" }
+  )
+
+  Admin.create!(
+    {
+      first_name: "fname", last_name: "lname",
+      email: "admin@mail.com", password: "admin_password" }
   )
 end
 
