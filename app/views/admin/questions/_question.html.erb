@@ -1,0 +1,5 @@
+<li><%= question.body %></li>
+<%= link_to 'Show',  admin_question_path(question) %> |
+<%= link_to 'Edit', edit_admin_question_path(question) %> |
+<%= link_to 'Delete', admin_question_path(question), action: :destroy, method: :delete %> |
+<%= link_to 'New answer', new_admin_question_answer_path(question) %>

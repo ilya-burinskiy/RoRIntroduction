@@ -9,7 +9,7 @@ class Answer < ApplicationRecord
 
   def validate_max_answers_count_for_question
     unless (0..3).include?(question.answers.count)
-      errors.add(:base, message: "Too many answers for question #{question.title}")
+      errors.add(:base, message: "Too many answers for question #{question.body}")
     end
   end
 end

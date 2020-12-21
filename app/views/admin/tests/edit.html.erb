@@ -1,0 +1,7 @@
+<%= form_with model: [:admin, @test], local: true do |form| %>
+  <%= render 'shared/errors', resource: @test %>
+  <p><%= render 'form_fields', form: form %></p>
+
+  <p><%= form.submit %></p>
+<% end %>
+<%= link_to 'Back to Tests', admin_tests_path %>
