@@ -1,2 +1,5 @@
 ru:
-  hello: "Привет мир"
+  test_passages:
+    gist:
+      success: "Gist успешно сохранен"
+      failure: "во время сохранения gist произошла ошибка"
