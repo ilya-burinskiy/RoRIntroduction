@@ -30,7 +30,13 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  test_passages:
-    gist:
+  description: "A question about %{title} from TestGuru"
+  gists:
+    index:
+      question_header: "Question" 
+      url_header: "URL"
+      user_header: "User"
+    create:
       success: "Gist was successfully saved"
       failure: "An error was occured while saving"
+      

@@ -1,5 +1,10 @@
 ru:
-  test_passages:
-    gist:
+  description: "Вопрос из теста %{title} от TestGuru"
+  gists:
+    index:
+      question_header: "Вопрос" 
+      url_header: "URL"
+      user_header: "Пользователь"
+    create:
       success: "Gist успешно сохранен"
       failure: "во время сохранения gist произошла ошибка"
