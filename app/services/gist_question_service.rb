@@ -1,24 +1,33 @@
-require 'octokit'
-
 class GistQuestionService
+  ACCESS_TOKEN = Rails.application.credentials.github[:access_token]
+  ROOT_ENDPOINT = Rails.application.credentials.github[:root_endpoint]
+
   def initialize(question, client: nil)
     @question = question
     @test = @question.test
     configure_endpoint
-    @client = client || Octokit::Client.new(access_token: Rails.application.credentials.github[:access_token])
+    @client = client || Octokit::Client.new(access_token: ACCESS_TOKEN)
   end
 
   def call
-    response = @client.create_gist(gist_params)
-  rescue Octokit::ClientError
-    nil
+    GitHubClientResponse.new(create_gist)
+  end
+
+  def success?
+    @success
   end
 
   private
 
+  def create_gist
+    gist_resource = @client.create_gist(gist_params)
+  rescue Octokit::ClientError
+    nil
+  end
+
   def configure_endpoint
     Octokit.configure do |c|
-      c.api_endpoint = Rails.application.credentials.github[:root_endpoint]
+      c.api_endpoint = ROOT_ENDPOINT
     end
   end
 
