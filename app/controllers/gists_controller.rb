@@ -2,7 +2,7 @@ class GistsController < ApplicationController
   before_action :find_test_passage, only: :create
 
   def create
-    response = GistQuestionService.new(@test_passage.current_question).call
+    response = GitHub::GistQuestionService.new(@test_passage.current_question).call
 
     if response.success?
       @gist = Gist.create({
@@ -12,12 +12,13 @@ class GistsController < ApplicationController
         user: @test_passage.user
       })
 
-      flash_options = { notice: "#{t('.success')} #{@gist.url}" }
+      gist_link = "<a href=\"#{@gist.url}\" rel=nofollow target=\"_blank\">#{@gist.url}</a>"
+      flash[:notice] = "#{t('.success')} #{gist_link}"
     else
-      flash_options = { notice: t(".failure") }
+      flash[:notice] = t('.failure')
     end
 
-    redirect_to @test_passage, flash_options
+    redirect_to @test_passage
   end
 
   private
