@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2020_12_21_172916) do
   create_table "gists", force: :cascade do |t|
     t.integer "question_id", null: false
     t.string "url", null: false
+    t.string "hash_from_url", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

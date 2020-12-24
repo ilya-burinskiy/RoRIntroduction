@@ -1,7 +1,7 @@
 <tr>
   <td><%= link_to truncate(gist.question.body, length: 25), admin_question_path(gist.question) %></td>
   <td>
-    <a href="<%= gist.url %>" rel="nofollow" target="_blank"><%= gist.hash %></a>
+    <a href="<%= gist.url %>" rel="nofollow" target="_blank"><%= gist.hash_from_url %></a>
   </td>
   <td><%= gist.user.email %></td>
 </tr>

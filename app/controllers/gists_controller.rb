@@ -8,6 +8,7 @@ class GistsController < ApplicationController
       @gist = Gist.create({
         question: @test_passage.current_question,
         url: response.gist_url,
+        hash_from_url: response.gist_hash,
         user: @test_passage.user
       })
 
