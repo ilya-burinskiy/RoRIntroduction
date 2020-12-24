@@ -12,13 +12,9 @@ class GistsController < ApplicationController
         user: @test_passage.user
       })
 
-      flash[:notice] = t('.success',
-        href: helpers.link_to(
-          @gist.url, 
-          @gist.url,
-          rel: :nofollow,
-          target: "_blank"
-        )
+      flash[:notice] = t('.success_html',
+        href: @gist.url, 
+        gist:  @gist.url,
       )
     else
       flash[:notice] = t('.failure')

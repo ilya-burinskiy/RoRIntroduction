@@ -6,5 +6,5 @@ ru:
       url_header: "URL"
       user_header: "Пользователь"
     create:
-      success: "Gist успешно сохранен %{href}"
+      success_html: Gist успешно сохранен <a href="%{href}", rel="nofollow", target="_blank">%{gist}</a>
       failure: "во время сохранения gist произошла ошибка"
