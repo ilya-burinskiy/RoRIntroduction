@@ -1,35 +1,23 @@
 class GistQuestionService
   ACCESS_TOKEN = Rails.application.credentials.github[:access_token]
-  ROOT_ENDPOINT = Rails.application.credentials.github[:root_endpoint]
 
-  def initialize(question, client: nil)
+  def initialize(question, client: Octokit::Client.new(access_token: ACCESS_TOKEN))
     @question = question
     @test = @question.test
-    configure_endpoint
-    @client = client || Octokit::Client.new(access_token: ACCESS_TOKEN)
+    @client = client
   end
 
   def call
-    GitHubClientResponse.new(create_gist)
-  end
-
-  def success?
-    @success
+    git_hub_client_response = GitHubClientResponse.new
+    gist_resource = @client.create_gist(gist_params)
+    git_hub_client_response.gist_url = gist_resource.html_url
+    git_hub_client_response.gist_hash = gist_resource.id
+    git_hub_client_response
+  rescue Octokit::ClientError
+    git_hub_client_response
   end
 
   private
-
-  def create_gist
-    gist_resource = @client.create_gist(gist_params)
-  rescue Octokit::ClientError
-    nil
-  end
-
-  def configure_endpoint
-    Octokit.configure do |c|
-      c.api_endpoint = ROOT_ENDPOINT
-    end
-  end
 
   def gist_params
     {
@@ -43,8 +31,6 @@ class GistQuestionService
   end
 
   def gist_content
-    content = [@question.body]
-    content += @question.answers.pluck(:body)
-    content.join("\n")
+    [@question.body, *@question.answers.pluck(:body)].join("\n")
   end
 end
