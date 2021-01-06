@@ -4,6 +4,7 @@
 // that code so it'll be compiled.
 
 import 'utilities/sorting'
+import 'utilities/password_check'
 
 require("@rails/ujs").start()
 require("turbolinks").start()
