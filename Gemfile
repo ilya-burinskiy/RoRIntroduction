@@ -25,9 +25,12 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+gem 'bootstrap'
+gem 'octicons_helper'
+
 # AUTH
 
-gem 'devise', '~> 4.0'
+gem 'devise', '~> 4.7'
 
 # NETWORKING
 
