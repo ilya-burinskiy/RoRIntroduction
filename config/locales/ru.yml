@@ -8,3 +8,16 @@ ru:
     create:
       success_html: Gist успешно сохранен <a href="%{href}", rel="nofollow", target="_blank">%{gist}</a>
       failure: "во время сохранения gist произошла ошибка"
+
+  admin:
+    tests:
+      form_inline:
+        submit: "OK"
+
+  activerecord:
+    errors:
+      models:
+        test:
+          attributes:
+            title:
+              blank: "Название теста не может быть пустым"
