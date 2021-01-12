@@ -25,6 +25,11 @@ class TestPassage < ApplicationRecord
     @passage_percent
   end
 
+  def progress_percent
+    calc_progress_percent if @progress_percent.nil?
+    @progress_percent
+  end
+
   def passed?
     true if passage_percent >= THRESHOLD
   end
@@ -41,6 +46,10 @@ class TestPassage < ApplicationRecord
       total_correct_questions_num += question.answers.correct.count
     end
     @passage_percent = (correct_questions.to_f / total_correct_questions_num * 100).to_i
+  end
+
+  def calc_progress_percent
+    @progress_percent = ((current_question.number - 1) / test.questions.count.to_f * 100).to_i
   end
 
   def correct_answer?(answer_ids)
