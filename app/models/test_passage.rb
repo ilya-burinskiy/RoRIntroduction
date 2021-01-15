@@ -34,6 +34,11 @@ class TestPassage < ApplicationRecord
     true if passage_percent >= THRESHOLD
   end
 
+  def time_left
+    return test.time if created_at == updated_at
+    (created_at + test.time - Time.now).to_i
+  end
+
   private
 
   def before_validation_set_first_question
