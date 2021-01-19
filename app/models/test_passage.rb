@@ -8,7 +8,7 @@ class TestPassage < ApplicationRecord
   THRESHOLD = 85.freeze
 
   def completed?
-    current_question.nil?
+    current_question.nil? || !time_left?
   end
 
   def accept!(answer_ids)
@@ -32,6 +32,15 @@ class TestPassage < ApplicationRecord
 
   def passed?
     true if passage_percent >= THRESHOLD
+  end
+
+  def time_left
+    return test.time if created_at == updated_at
+    (created_at + test.time - Time.now).to_i
+  end
+
+  def time_left?
+    time_left > 0
   end
 
   private

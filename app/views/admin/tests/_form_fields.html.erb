@@ -9,6 +9,11 @@
 </p>
 
 <p>
+  <%= form.label :time %>
+  <%= form.number_field :time%>
+</p>
+
+<p>
   <%= form.label :category %>
   <%= form.collection_select :category_id, Category.all, :id, :name, prompt: true %>
 </p>

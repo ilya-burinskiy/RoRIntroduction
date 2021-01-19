@@ -6,6 +6,7 @@
 import 'utilities/sorting'
 import 'utilities/password_check'
 import 'utilities/form_inline'
+import 'utilities/timer'
 
 require("@rails/ujs").start()
 require("turbolinks").start()
