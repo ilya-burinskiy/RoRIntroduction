@@ -8,7 +8,7 @@ class TestPassage < ApplicationRecord
   THRESHOLD = 85.freeze
 
   def completed?
-    current_question.nil?
+    current_question.nil? || !time_left?
   end
 
   def accept!(answer_ids)
