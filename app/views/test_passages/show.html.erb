@@ -1,6 +1,6 @@
 <h1>Passing the <%= @test_passage.test.title %> Test</h1>
 
-<%= content_tag :div, class: 'timer', data: { time_left: @test_passage.time_left } do %>
+<%= content_tag :div, id: 'timer', data: { time_left: @test_passage.time_left } do %>
 <% end %>
 
 <%= content_tag :div, class: "progress" do %> 

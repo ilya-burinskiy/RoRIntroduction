@@ -1,7 +1,7 @@
 document.addEventListener('turbolinks:load', function() {
-  const timerBlock = document.querySelector('.timer')
+  const timerBlock = document.getElementById('timer')
 
-  if (timerBlock) { startTimer(timerBlock) }
+  if (timerBlock) startTimer(timerBlock)
 })
 
 function startTimer(timerBlock) {
@@ -17,8 +17,7 @@ function startTimer(timerBlock) {
     timerBlock.textContent = minutes + ':' + seconds
 
     if (--timeLeft < 0) {
-      const form = document.querySelector('form')
-      form.submit()
+      document.forms[0].submit()
     }
   }, 1000);
 }
