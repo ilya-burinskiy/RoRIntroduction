@@ -179,3 +179,25 @@ unless Answer.exists?
     }
   ])
 end
+
+unless Badge.exists?
+  Badge.create!([
+    {
+      name: 'C++ Guru',
+      url: 'https://cdn.iconscout.com/icon/free/png-256/badge-964-910295.png',
+      rule: 'Passed all tests from the C++ category'
+    },
+
+    {
+      name: 'On The First Try',
+      url: 'https://cdn.iconscout.com/icon/free/png-256/badge-964-910295.png',
+      rule: 'Passed the test on the first try'
+    },
+
+    {
+      name: 'First Level Tests Completed',
+      url: 'https://cdn.iconscout.com/icon/free/png-256/badge-964-910295.png',
+      rule: 'Passed all first level tests'
+    }
+  ])
+end
