@@ -16,6 +16,7 @@ class TestPassage < ApplicationRecord
       self.correct_questions += 1
     end
 
+    self.passed = passed?
     self.current_question = next_question
     save!
   end
@@ -31,7 +32,8 @@ class TestPassage < ApplicationRecord
   end
 
   def passed?
-    true if passage_percent >= THRESHOLD
+    return true if passage_percent >= THRESHOLD
+    false
   end
 
   def time_left
