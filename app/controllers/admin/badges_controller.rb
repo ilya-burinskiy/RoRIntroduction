@@ -1,9 +1,5 @@
 class Admin::BadgesController < Admin::BaseController
-  before_action :find_badge, only: %i[edit update destroy]
-  
-  def index
-    @badges = Badge.all
-  end
+  before_action :find_badge, only: %i[edit update destroy show]
 
   def new
     @badge = Badge.new
@@ -13,7 +9,7 @@ class Admin::BadgesController < Admin::BaseController
     @badge = Badge.new(badge_params)
 
     if @badge.save
-      redirect_to admin_badges_path
+      redirect_to admin_badge_path(@badge)
     else
       render :new
     end
@@ -23,7 +19,7 @@ class Admin::BadgesController < Admin::BaseController
 
   def update
     if @badge.update(badge_params)
-      redirect_to admin_badges_path
+      redirect_to admin_badge_path(@badge)
     else
       render :edit
     end
@@ -31,8 +27,10 @@ class Admin::BadgesController < Admin::BaseController
 
   def destroy
     @badge.destroy
-    redirect_to admin_badges_path
+    redirect_to admin_tests_path
   end
+
+  def show; end
 
   private
 

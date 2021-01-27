@@ -13,7 +13,7 @@
 
   <p>
     <%= form.label :rule %>
-    <%= form.select :rule, Badge.rules, id: :badge_rule %>
+    <%= form.select :rule, Badge.rules.keys, id: :badge_rule %>
   </p>
 
   <p>
