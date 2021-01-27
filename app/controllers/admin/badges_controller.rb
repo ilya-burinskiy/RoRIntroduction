@@ -3,7 +3,6 @@ class Admin::BadgesController < Admin::BaseController
   
   def index
     @badges = Badge.all
-    @user_badges = current_user.badges
   end
 
   def new
@@ -38,7 +37,18 @@ class Admin::BadgesController < Admin::BaseController
   private
 
   def badge_params
-    params.require(:badge).permit(:name, :url, :rule)
+    new_params = nil
+
+    case params.require(:badge)[:rule]
+    when "passing_test_on_first_try"
+      new_params = params.require(:badge).merge({ rule_property: params.require(:badge)[:test_id] })
+    when "passing_all_tests_from_category"
+      new_params = params.require(:badge).merge({ rule_property: params[:badge][:category_id] })
+    when "passing_all_tests_by_level"
+      new_params = params.require(:badge).merge({ rule_property: params[:badge][:level] })
+    end
+
+    new_params = new_params.except(:test_id, :category_id, :level).permit(:name, :url, :rule, :rule_property)
   end
 
   def find_badge

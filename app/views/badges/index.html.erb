@@ -6,9 +6,8 @@
   </p>
   <p class="badges_user">
     <h3>User Badges</h3>
-    <%= render partial: 'user_badge', collection: @user_badges %>
+    <%= render partial: 'badge', collection: @user_badges %>
   </p>
 </div>
 
-<%= link_to 'New Badge', new_admin_badge_path %>
-<%= link_to 'Back', root_path %>
+<%= link_to 'Back', :back %>
