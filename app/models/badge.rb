@@ -2,12 +2,14 @@ class Badge < ApplicationRecord
   has_many :user_badges, dependent: :destroy
   has_many :users, through: :user_badges
 
-  validates :rule, uniqueness: true, presence: true
+  validates :rule, presence: true
+  validates :name, uniqueness: true, presence: true
+  validates :url, presence: true
+  validates :rule_property, presence: true
 
-  RULES = [
-    'Passed all tests from the C++ category',
-    'Passed all tests from the Ruby category',
-    'Passed the test on the first try',
-    'Passed all first level tests'
-  ].freeze
+  RULES = {
+    passing_test_on_first_try: 'Passing test on first try',
+    passing_all_tests_from_category: 'Passing all tests from category',
+    passing_all_tests_by_level: 'Passing all tests by level'
+  }
 end

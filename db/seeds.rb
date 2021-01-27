@@ -185,19 +185,22 @@ unless Badge.exists?
     {
       name: 'C++ Guru',
       url: 'https://cdn.iconscout.com/icon/free/png-256/badge-964-910295.png',
-      rule: 'Passed all tests from the C++ category'
+      rule: 'passing_all_tests_from_category',
+      rule_property: Category.find_by(name: 'C++').id
     },
 
     {
-      name: 'On The First Try',
+      name: 'Ruby for beginners passed on first try',
       url: 'https://cdn.iconscout.com/icon/free/png-256/badge-964-910295.png',
-      rule: 'Passed the test on the first try'
+      rule: 'passing_test_on_first_try',
+      rule_property: Test.find_by(title: 'Ruby for beginners').id
     },
 
     {
-      name: 'First Level Tests Completed',
+      name: 'All first level tests passed',
       url: 'https://cdn.iconscout.com/icon/free/png-256/badge-964-910295.png',
-      rule: 'Passed all first level tests'
-    }
+      rule: 'passing_all_tests_by_level',
+      rule_property: 1
+    },
   ])
 end
