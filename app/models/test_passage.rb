@@ -5,7 +5,7 @@ class TestPassage < ApplicationRecord
 
   before_validation :before_validation_set_first_question, on: :create
 
-  THRESHOLD = 85.freeze
+  PASSAGE_THRESHOLD = 85.freeze
 
   def completed?
     current_question.nil? || !time_left?
@@ -32,8 +32,7 @@ class TestPassage < ApplicationRecord
   end
 
   def passed?
-    return true if passage_percent >= THRESHOLD
-    false
+    passage_percent >= PASSAGE_THRESHOLD
   end
 
   def time_left
