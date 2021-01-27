@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TestPassage < ApplicationRecord
   belongs_to :test
   belongs_to :user
@@ -5,7 +7,7 @@ class TestPassage < ApplicationRecord
 
   before_validation :before_validation_set_first_question, on: :create
 
-  PASSAGE_THRESHOLD = 85.freeze
+  PASSAGE_THRESHOLD = 85
 
   def completed?
     current_question.nil? || !time_left?
