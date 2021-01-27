@@ -24,6 +24,6 @@ class Test < ApplicationRecord
   end
 
   def self.all_levels
-    Test.all.pluck(:level).uniq
+    pluck(:level).uniq
   end
 end
