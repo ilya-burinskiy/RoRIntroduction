@@ -22,4 +22,8 @@ class Test < ApplicationRecord
       categories: { name: pattern }
     ).order(title: :desc).pluck(:title)
   end
+
+  def self.all_levels
+    Test.all.pluck(:level).uniq
+  end
 end
