@@ -1,58 +1,63 @@
 class BadgeService
-  def initialize(test_passage)
-    @test_passage = test_passage
-    @user = test_passage.user
-    @test = test_passage.test
-  end
 
-  def call
-    if @test_passage.passed?
-      badge_for_passing_test_on_first_try if passed_test_on_first_try?
-      badge_for_passing_cpp_category_tests if cpp_category_tests_passed?
-      badge_for_passing_ruby_category_tests if ruby_category_tests_passed?
-      badge_for_passing_all_first_level_tests if all_first_level_tests_passed?
+  class << self
+    def call(test_passage)
+      @user = test_passage.user
+      @test = test_passage.test
+
+      if test_passage.passed?
+        Badge.all.map { |badge| give_badge(badge) }
+      end
     end
-  end
 
-  def passed_test_on_first_try?
-    TestPassage.where(test: @test, user: @user).count == 1
-  end
+    private
 
-  def cpp_category_tests_passed?
-    cpp_category = Category.find_by(name: 'C++')
-    return false if @test.category != cpp_category
+    def give_badge(badge)
+      case badge.rule
+      when "passing_test_on_first_try"
+        give_badge_for_passing_test_on_first_try(badge)
+      when "passing_all_tests_from_category"
+        give_badge_for_passing_all_tests_from_category(badge)
+      when "passing_all_tests_by_level"
+        give_badge_for_passing_all_tests_by_level(badge)
+      end
+    end
 
-    user_passed_tests.where(category_id: cpp_category.id).count % Test.where(category: cpp_category).count == 0
-  end
+    def give_badge_for_passing_test_on_first_try(badge)
+      test = Test.find(badge.rule_property)
+      @user.badges.push(badge) if passed_test_on_first_try?(test)
+    end
 
-  def ruby_category_tests_passed?
-    ruby_category = Category.find_by(name: 'Ruby')
-    return false if @test.category != ruby_category
+    def give_badge_for_passing_all_tests_from_category(badge)
+      category = Category.find(badge.rule_property)
+      @user.badges.push(badge) if passed_all_tests_from_category?(category)
+    end
 
-    user_passed_tests.where(category_id: ruby_category.id).count % Test.where(category: ruby_category).count == 0
-  end
+    def give_badge_for_passing_all_tests_by_level(badge)
+      level = badge.rule_property
+      @user.badges.push(badge) if passed_all_tests_by_level(level)
+    end
 
-  def user_passed_tests
-    Test.joins("INNER JOIN test_passages ON tests.id = test_passages.test_id AND test_passages.passed = 1")
-  end
+    def passed_test_on_first_try?(test)
+      TestPassage.where(test: test, user: @user).count == 1
+    end
 
-  def all_first_level_tests_passed?
-    user_passed_tests.where(level: 1).uniq.count == Test.where(level: 1).count
-  end
+    def passed_all_tests_from_category?(category)
+      return false if @test.category != category
 
-  def badge_for_passing_test_on_first_try
-    @user.badges.push(Badge.find_by(rule: 'Passed the test on the first try'))
-  end
+      user_passed_tests.where(category_id: category.id).count % Test.where(category: category).count == 0
+    end
 
-  def badge_for_passing_cpp_category_tests
-    @user.badges.push(Badge.find_by(rule: 'Passed all tests from the C++ category'))
-  end
+    def passed_all_tests_by_level(level)
+      return false if @test.level != level
 
-  def badge_for_passing_ruby_category_tests
-    @user.badges.push(Badge.find_by(rule: 'Passed all tests from the Ruby category'))
-  end
+      user_passed_tests.where(level: level).uniq.count == Test.where(level: level).count
+    end
 
-  def badge_for_passing_all_first_level_tests
-    @user.badges.push(Badge.find_by(rule: 'Passed all first level tests'))
+    def user_passed_tests
+      Test.joins(
+        "INNER JOIN test_passages ON tests.id = test_passages.test_id"
+      ).where("test_passages.user_id = ? AND test_passages.passed = 1", @user.id)
+    end
   end
 end
