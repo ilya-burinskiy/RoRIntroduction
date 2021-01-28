@@ -24,10 +24,10 @@ class User < ApplicationRecord
   end
 
   def admin?
-    type == 'Admin'
+    is_a?(Admin)
   end
 
   def passed_tests
-    Test.joins(:test_passages).where('test_passages.passed': true, 'test_passages.user': self)
+    Test.joins(:test_passages).where(test_passages: { user: self, passed: true })
   end
 end
