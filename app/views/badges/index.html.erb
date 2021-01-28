@@ -1,0 +1,13 @@
+<h2>Badges</h2>
+<div class="badges">
+  <p class="badges_all">
+    <h3>All Badges</h3>
+    <%= render @badges %>
+  </p>
+  <p class="badges_user">
+    <h3>User Badges</h3>
+    <%= render partial: 'badge', collection: @user_badges %>
+  </p>
+</div>
+
+<%= link_to 'Back', :back %>

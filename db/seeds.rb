@@ -179,3 +179,28 @@ unless Answer.exists?
     }
   ])
 end
+
+unless Badge.exists?
+  Badge.create!([
+    {
+      name: 'C++ Guru',
+      url: 'https://cdn.iconscout.com/icon/free/png-256/badge-964-910295.png',
+      rule: Badge.rules["passing_all_tests_from_category"],
+      rule_property: Category.find_by(name: 'C++').id
+    },
+
+    {
+      name: 'Ruby for beginners passed on first try',
+      url: 'https://cdn.iconscout.com/icon/free/png-256/badge-964-910295.png',
+      rule: Badge.rules["passing_test_on_first_try"],
+      rule_property: Test.find_by(title: 'Ruby for beginners').id
+    },
+
+    {
+      name: 'All first level tests passed',
+      url: 'https://cdn.iconscout.com/icon/free/png-256/badge-964-910295.png',
+      rule: Badge.rules["passing_all_tests_by_level"],
+      rule_property: 1
+    },
+  ])
+end

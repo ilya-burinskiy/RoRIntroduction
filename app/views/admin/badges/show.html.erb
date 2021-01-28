@@ -1,0 +1,7 @@
+<div class="badge">
+  <img src="<%= @badge.url %>" class="badge_img">
+  <p class="badge_name"><%= @badge.name %></p>
+</div>
+
+<%= link_to 'Delete', admin_badge_path(@badge) %>
+<%= link_to 'Edit', edit_admin_badge_path(@badge) %>

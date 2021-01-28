@@ -1,19 +1,19 @@
-<p>
+<div class="form-group">
   <%= form.label :title %>
   <%= form.text_field :title %>
-</p>
+</div>
 
-<p>
+<div class="form-group">
   <%= form.label :level %>
   <%= form.number_field :level %>
-</p>
+</div>
 
-<p>
+<div class="form-group">
   <%= form.label :time %>
   <%= form.number_field :time%>
-</p>
+</div>
 
-<p>
+<div class="form-group">
   <%= form.label :category %>
   <%= form.collection_select :category_id, Category.all, :id, :name, prompt: true %>
-</p>
+</div>
