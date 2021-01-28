@@ -1,22 +1,22 @@
 <%= form_with model: [:admin, @badge], local: true do |form| %>
   <%= render 'shared/errors', resource: @badge %>
 
-  <p>
+  <div class="form-group">
     <%= form.label :name %><br>
     <%= form.text_field :name, id: :badge_name %>
-  </p>
+  </div>
 
-  <p>
+  <div class="form-group">
     <%= form.label :url %><br>
     <%= form.text_field :url, id: :badge_url %>
-  </p>
+  </div>
 
-  <p>
+  <div class="form-group">
     <%= form.label :rule %>
     <%= form.select :rule, Badge.rules.keys, id: :badge_rule %>
-  </p>
+  </div>
 
-  <p>
+  <div class="form-group">
     <%= form.label :rule_property %>
     <%= form.number_field :rule_property, id: :badge_rule_property %>
   </p>

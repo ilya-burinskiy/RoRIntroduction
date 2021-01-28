@@ -1,7 +1,7 @@
 <%= question_header(@test.title, :new) %>
 <%= form_with model: [:admin, @test, @question], local: true do |form| %>
   <%= render 'shared/errors', resource: @question %>
-  <p><%= render 'form_fields', form: form %></p>
+  <div class="form-group"><%= render 'form_fields', form: form %></div>
 
   <p><%= form.submit %></p>
 <% end %>
