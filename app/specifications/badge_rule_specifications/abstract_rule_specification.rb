@@ -1,4 +1,4 @@
-class AbstractRule
+class AbstractRuleSpecification
   def initialize(test_passage, rule_property)
     @test_passage = test_passage
     @rule_property = rule_property
