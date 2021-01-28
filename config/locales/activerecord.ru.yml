@@ -1,0 +1,12 @@
+ru:
+  activerecord:
+    errors:
+      models:
+        badge:
+          attributes:
+            name:
+              blank: бейджа не может быть пустым
+            url:
+              blank: изображения для бейджа не может быть пустым
+            rule_property:
+              blank: бейджа не может быть пустым
