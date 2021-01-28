@@ -1,8 +1,8 @@
 class BadgeService
   RULES = {
-    passing_test_on_first_try: PassingTestOnFirstTry,
-    passing_all_tests_from_category: PassingAllTestsFromCategory,
-    passing_all_tests_by_level: PassingAllTestsByLevel
+    'passing_test_on_first_try' =>       BadgeRuleSpecifications::PassingTestOnFirstTry,
+    'passing_all_tests_from_category' => BadgeRuleSpecifications::PassingAllTestsFromCategory,
+    'passing_all_tests_by_level' =>      BadgeRuleSpecifications::PassingAllTestsByLevel
   }.freeze
 
   def self.call(test_passage)
@@ -14,11 +14,11 @@ class BadgeService
   end
 
   def call
-    if @test_passage.passed?
-      Badge.find_each do |badge|
-        rule = RULES[badge.rule.to_sym].new(@test_passage, badge.rule_property)
-        add_badge(badge) if rule.satisfies?
-      end
+    return unless @test_passage.passed?
+
+    Badge.find_each do |badge|
+      rule = RULES[badge.rule].new(@test_passage, badge.rule_property)
+      add_badge(badge) if rule.satisfies?
     end
   end
 
@@ -27,5 +27,4 @@ class BadgeService
   def add_badge(badge)
     @test_passage.user.badges.push(badge)
   end
-
 end
