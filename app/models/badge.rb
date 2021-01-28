@@ -7,9 +7,9 @@ class Badge < ApplicationRecord
   validates :url, presence: true
   validates :rule_property, presence: true
 
-  enum rule: %i[
-    passing_test_on_first_try
-    passing_all_tests_from_category
-    passing_all_tests_by_level
-  ]
+  enum rule: {
+    passing_test_on_first_try:       0
+    passing_all_tests_from_category: 1
+    passing_all_tests_by_level:      2
+  }
 end
