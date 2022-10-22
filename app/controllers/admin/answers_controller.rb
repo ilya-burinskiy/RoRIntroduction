@@ -1,20 +1,21 @@
 class Admin::AnswersController < Admin::BaseController
   before_action :authenticate_user!
-  
-  before_action :set_answer, only: %i[show edit update destroy]
-  before_action :find_qeustion, only: %i[new create]
 
   def show
+    @answer = find_answer
   end
 
   def new
+    @question = find_qeustion
     @answer = @question.answers.new
   end
 
   def edit
+    @answer = find_answer
   end
 
   def create
+    @question = find_qeustion
     @answer = Answer.new(answer_params)
     @answer.question = @question
 
@@ -26,6 +27,7 @@ class Admin::AnswersController < Admin::BaseController
   end
 
   def update
+    @answer = find_answer
     if @answer.update(answer_params)
       redirect_to admin_answer_path(@answer)
     else
@@ -34,18 +36,19 @@ class Admin::AnswersController < Admin::BaseController
   end
 
   def destroy
-    @answer.destroy
-    redirect_to admin_question_path(@answer.question)
+    answer = find_answer
+    answer.destroy
+    redirect_to admin_question_path(answer.question)
   end
 
   private
 
   def find_qeustion
-    @question = Question.find(params[:question_id])
+    Question.find(params[:question_id])
   end
 
-  def set_answer
-    @answer = Answer.find(params[:id])
+  def find_answer
+    Answer.find(params[:id])
   end
 
   def answer_params

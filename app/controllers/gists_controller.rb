@@ -1,31 +1,24 @@
 class GistsController < ApplicationController
-  before_action :find_test_passage, only: :create
-
   def create
-    response = GitHub::GistQuestionService.new(@test_passage.current_question).call
+    test_passage = TestPassage.find(params[:test_passage_id])
+    response = GitHub::GistQuestionService.new(test_passage.current_question).call
 
     if response.success?
-      @gist = Gist.create({
-        question: @test_passage.current_question,
+      gist = Gist.create({
+        question: test_passage.current_question,
         url: response.gist_url,
         hash_from_url: response.gist_hash,
-        user: @test_passage.user
+        user: test_passage.user
       })
 
       flash[:notice] = t('.success_html',
-        href: @gist.url, 
-        gist:  @gist.url,
+        href: gist.url, 
+        gist:  gist.url,
       )
     else
       flash[:notice] = t('.failure')
     end
 
-    redirect_to @test_passage
-  end
-
-  private
-
-  def find_test_passage
-    @test_passage = TestPassage.find(params[:test_passage_id])
+    redirect_to test_passage
   end
 end

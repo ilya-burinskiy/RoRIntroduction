@@ -1,6 +1,4 @@
 class Admin::BadgesController < Admin::BaseController
-  before_action :find_badge, only: %i[edit update destroy show]
-
   def new
     @badge = Badge.new
   end
@@ -15,9 +13,12 @@ class Admin::BadgesController < Admin::BaseController
     end
   end
 
-  def edit; end
+  def edit
+    @badge = find_badge
+  end
 
   def update
+    @badge = find_badge
     if @badge.update(badge_params)
       redirect_to admin_badge_path(@badge)
     else
@@ -26,11 +27,14 @@ class Admin::BadgesController < Admin::BaseController
   end
 
   def destroy
-    @badge.destroy
+    badge = find_badge
+    badge.destroy
     redirect_to admin_tests_path
   end
 
-  def show; end
+  def show
+    @badge = find_badge
+  end
 
   private
 
@@ -39,6 +43,6 @@ class Admin::BadgesController < Admin::BaseController
   end
 
   def find_badge
-    @badge = Badge.find(params[:id])
+    Badge.find(params[:id])
   end
 end

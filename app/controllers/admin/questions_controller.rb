@@ -1,24 +1,25 @@
 class Admin::QuestionsController < Admin::BaseController
   before_action :authenticate_user!
-  
-  before_action :find_question, only: %i[edit show update destroy]
-  before_action :find_test, only: %i[index create new]
 
   rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_question_not_found
 
   def show
+    @question = find_question
     @test = @question.test
   end
 
   def new
+    @test = find_test
     @question = Question.new
   end
 
   def edit
+    @question = find_question
     @test = @question.test
   end
 
   def update
+    @question = find_question
     @test = @question.test
     if @question.update(question_params)
       redirect_to admin_question_path(@question)
@@ -28,6 +29,7 @@ class Admin::QuestionsController < Admin::BaseController
   end
 
   def create
+    @test = find_test
     @question = @test.questions.new(question_params)
     if @question.save
       redirect_to admin_question_path(@question)
@@ -37,8 +39,9 @@ class Admin::QuestionsController < Admin::BaseController
   end
 
   def destroy
-    @question.destroy!
-    redirect_to admin_test_path(@question.test)
+    question = find_question
+    question.destroy!
+    redirect_to admin_test_path(question.test)
   end
 
   private
@@ -48,11 +51,11 @@ class Admin::QuestionsController < Admin::BaseController
   end
 
   def find_test
-    @test = Test.find(params[:test_id])
+    Test.find(params[:test_id])
   end
 
   def find_question
-    @question = Question.find(params[:id])
+    Question.find(params[:id])
   end
 
   def rescue_with_question_not_found

@@ -1,10 +1,11 @@
 class Admin::TestsController < Admin::BaseController
-  before_action :set_tests, only: %i[index update_inline]
-  before_action :find_test, only: %i[show edit update destroy start update_inline]
+  def index
+    @tests = load_tests
+  end
 
-  def index; end
-
-  def show; end
+  def show
+    @test = find_test
+  end
 
   def new
     @test = Test.new
@@ -22,13 +23,17 @@ class Admin::TestsController < Admin::BaseController
   end
 
   def destroy
-    @test.destroy
+    test = find_test
+    test.destroy
     redirect_to admin_tests_path
   end
 
-  def edit; end
+  def edit
+    @test = find_test
+  end
 
   def update
+    @test = find_test
     if @test.update(test_params)
       redirect_to admin_test_path(@test)
     else
@@ -37,29 +42,32 @@ class Admin::TestsController < Admin::BaseController
   end
 
   def update_inline
-    if @test.update(test_params)
+    test = find_test
+    if test.update(test_params)
       redirect_to admin_tests_path
     else
+      @tests = load_tests
       render :index
     end
   end
 
   def start
-    current_user.started_tests.push(@test)
-    redirect_to current_user.test_passage(@test)
+    test = find_test
+    current_user.started_tests.push(test)
+    redirect_to current_user.test_passage(test)
   end
 
   private
 
   def find_test
-    @test = Test.find(params[:id])
+    Test.find(params[:id])
   end
 
   def test_params
     params.require(:test).permit(:title, :level, :time, :category_id)
   end
 
-  def set_tests
-    @tests = Test.all
+  def load_tests
+    Test.all
   end
 end
