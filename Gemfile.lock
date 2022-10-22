@@ -94,6 +94,8 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.1)
+    faraday-retry (2.0.0)
+      faraday (~> 2.0)
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
@@ -133,6 +135,7 @@ GEM
       sawyer (~> 0.9)
     orm_adapter (0.5.0)
     popper_js (2.11.6)
+    psych (3.3.4)
     public_suffix (5.0.0)
     puma (4.3.12)
       nio4r (~> 2.0)
@@ -250,11 +253,13 @@ DEPENDENCIES
   capybara (>= 2.15)
   devise (~> 4.7)
   faraday
+  faraday-retry
   jbuilder (~> 2.7)
   letter_opener
   listen (~> 3.2)
   octicons_helper
   octokit (~> 4.0)
+  psych (< 4)
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
   sass-rails (>= 6)
