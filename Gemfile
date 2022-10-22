@@ -39,6 +39,9 @@ gem 'faraday'
 gem 'faraday-retry'
 gem "octokit", "~> 4.0"
 
+# Mailer
+gem 'net-smtp', require: false
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
