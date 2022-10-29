@@ -6,8 +6,7 @@ class TestsController < ApplicationController
   end
 
   def start
-    test = Test.find(params[:id])
-    current_user.started_tests.push(test)
-    redirect_to current_user.test_passage(test)
+    service = StartTestService.new(current_user, Test.find(params[:id]))
+    redirect_to service.call
   end
 end
