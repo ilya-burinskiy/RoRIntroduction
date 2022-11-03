@@ -1,9 +1,9 @@
 module BadgeDepartment
   class BadgeService
     RULES = {
-      'passing_test_on_first_try' =>       BadgeRuleSpecifications::PassingTestOnFirstTry,
+      'passing_test_on_first_try' => BadgeRuleSpecifications::PassingTestOnFirstTry,
       'passing_all_tests_from_category' => BadgeRuleSpecifications::PassingAllTestsFromCategory,
-      'passing_all_tests_by_level' =>      BadgeRuleSpecifications::PassingAllTestsByLevel
+      'passing_all_tests_by_level' => BadgeRuleSpecifications::PassingAllTestsByLevel
     }.freeze
 
     def self.call(test_passage)

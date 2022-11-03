@@ -8,8 +8,8 @@ class Badge < ApplicationRecord
   validates :rule_property, presence: true
 
   enum rule: {
-    passing_test_on_first_try:       0,
+    passing_test_on_first_try: 0,
     passing_all_tests_from_category: 1,
-    passing_all_tests_by_level:      2
+    passing_all_tests_by_level: 2
   }.freeze
 end

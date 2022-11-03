@@ -14,9 +14,7 @@ class TestPassage < ApplicationRecord
   end
 
   def accept!(answer_ids)
-    if correct_answer?(answer_ids)
-      self.correct_questions += 1
-    end
+    self.correct_questions += 1 if correct_answer?(answer_ids)
 
     self.passed = passed?
     self.current_question = next_question
@@ -39,6 +37,7 @@ class TestPassage < ApplicationRecord
 
   def time_left
     return test.time if created_at == updated_at
+
     (created_at + test.time - Time.now).to_i
   end
 
@@ -67,7 +66,7 @@ class TestPassage < ApplicationRecord
   def correct_answer?(answer_ids)
     correct_answers_count = correct_answers.count
     (correct_answers_count == correct_answers.where(id: answer_ids).count) &&
-    correct_answers_count == answer_ids.count
+      correct_answers_count == answer_ids.count
   end
 
   def correct_answers

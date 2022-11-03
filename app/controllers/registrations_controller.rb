@@ -1,5 +1,4 @@
 class RegistrationsController < Devise::RegistrationsController
-
   def create
     super
     flash[:notice] = "Hellow there, #{resource.first_name}!"

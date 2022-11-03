@@ -5,7 +5,7 @@ module BadgeDepartment
         @test_passage = test_passage
         @rule_property = rule_property
       end
-      
+
       def satisfies?
         raise "#{__method__} undefined for #{self.class}"
       end
